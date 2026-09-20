@@ -1,0 +1,485 @@
+/* ===========================================================
+   ghostty-blocks.css — blocos e chrome com o "clima" do Ghostty
+   (03/09/2026). SÓ MODO CLARO: tudo escopado em body.theme-light.
+   Não mexe em fundo, line-height, gap de parágrafo, acento, texto
+   do editor nem cursor (isso é do terminal-editor.css).
+
+   Mapa dos blocos:
+     1. Sintaxe de código  → --code-* (vale no editor e na reading view)
+     2. Callouts           → neutros e flat, só a barra esquerda leva a cor do tipo
+     4. Chrome             → abas, explorer e divisores mais discretos
+   =========================================================== */
+
+/* ---- 1. Sintaxe de código: matizes da paleta ANSI do Ghostty
+   (#CC6666 #B5BD68 #F0C674 #81A2BE #B294BB #8ABEB7), escurecidos
+   para ter contraste sobre #FAF9F5 — os pastéis originais são de
+   fundo escuro. --code-normal fica como está. ---- */
+body.theme-light {
+  --code-comment:     #8a8a85;
+  --code-keyword:     #7f5a92;   /* magenta */
+  --code-string:      #5f7a1f;   /* verde */
+  --code-function:    #3f6f9f;   /* azul */
+  --code-property:    #3a7a72;   /* ciano */
+  --code-value:       #9a6a00;   /* amarelo escuro: números, booleanos */
+  --code-tag:         #b3413f;   /* vermelho */
+  --code-important:   #b3413f;
+  --code-punctuation: var(--text-muted);
+}
+
+/* ---- 2. Callouts flat: mesma caixa dos blocos de código
+   (fundo 3%, hairline, raio 10px). A cor do tipo fica só na barra
+   esquerda; ícone e título neutros. ---- */
+body:is(.theme-light, .theme-dark) .callout {
+  background: rgba(0, 0, 0, 0.03) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  border-radius: 14px !important;
+  box-shadow: none !important;
+  mix-blend-mode: normal !important;
+  padding: 0 !important;
+}
+body:is(.theme-light, .theme-dark) .callout .callout-title {
+  color: var(--text-normal) !important;
+  padding: 12px 18px !important;
+}
+body:is(.theme-light, .theme-dark) .callout .callout-icon {
+  color: var(--text-muted) !important;
+}
+body:is(.theme-light, .theme-dark) .callout .callout-content {
+  background: transparent !important;
+  padding: 0 18px 14px !important;
+}
+@supports (corner-shape: superellipse(1.65)) {
+  body:is(.theme-light, .theme-dark) .callout { corner-shape: superellipse(1.65); }
+}
+
+/* ---- 4. Chrome discreto ---- */
+body.theme-light {
+  --divider-color: rgba(0, 0, 0, 0.06);
+  --tab-outline-color: transparent;
+}
+/* aba ativa: sem brilho/sombra, só um hairline */
+body:is(.theme-light, .theme-dark) .workspace-tab-header.is-active {
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08) !important;
+}
+/* item ativo do explorer: fundo neutro chapado, sem sombra */
+body:is(.theme-light, .theme-dark) .nav-file-title.is-active,
+body:is(.theme-light, .theme-dark) .nav-folder-title.is-active {
+  background: rgba(0, 0, 0, 0.05) !important;
+  box-shadow: none !important;
+}
+
+/* ===========================================================
+   Segunda leva (03/09/2026): citações, tabelas, tarefas, tags,
+   destaques e embeds. Mesma gramática dos blocos acima: fundo
+   neutro a 3–4%, hairline a 8%, raio pequeno, sem cor de acento
+   em superfície (o acento fica só em texto/estado).
+   =========================================================== */
+body.theme-light {
+  /* Citações: o Border usa padrão pontilhado + barra de 3px no acento.
+     Aqui: fundo chapado e barra fina cinza. */
+  --blockquote-border-thickness: 2px;
+  --blockquote-border-color: rgba(0, 0, 0, 0.25);
+  --blockquote-background-light: rgba(0, 0, 0, 0.03);
+
+  /* Tabelas: cabeçalho chapado e divisórias hairline */
+  --table-header-background-light: rgba(0, 0, 0, 0.04);
+  --table-border-width: 1px;
+  --table-border-color: rgba(0, 0, 0, 0.08);
+
+  /* Tarefas: quadradinho de 4px; marcado usa o acento do vault
+     (era verde) */
+  --checkbox-radius: 5px;
+  --checkbox-color: var(--interactive-accent);
+  --checkbox-color-hover: var(--interactive-accent);
+
+  /* Tags: de pílula azul para etiqueta neutra de 4px; o texto
+     continua no acento */
+  --tag-radius: 6px;
+  --tag-background: rgba(0, 0, 0, 0.04);
+  --tag-background-hover: rgba(0, 0, 0, 0.07);
+  --tag-border-color: rgba(0, 0, 0, 0.08);
+  --tag-border-color-hover: rgba(0, 0, 0, 0.12);
+
+  /* Destaques ==x==: o amarelo ANSI do Ghostty (#F0C674), mais
+     suave que o amarelo puro do tema */
+  --text-highlight-bg: rgba(240, 198, 116, 0.45);
+  --text-highlight-bg-active: rgba(240, 150, 80, 0.4);
+
+  /* Embeds ![[ ]]: mesmo raio dos blocos e barra fina à esquerda */
+  --embed-border-radius: 14px;
+  --embed-border-start: 2px solid rgba(0, 0, 0, 0.15);
+}
+
+/* ===========================================================
+   Terceira leva (03/09/2026): mais recheio e raio estilo Apple.
+   Raio dos blocos 14px (era 10) com squircle; elementos internos
+   concêntricos (raio interno = 14 − inset).
+   =========================================================== */
+body.theme-light {
+  --blockquote-padding: 14px;        /* reading view soma isto ao recuo da barra */
+  --embed-padding: 10px 18px;
+  --tag-padding-x: 0.8em;
+  --tag-padding-y: 0.3em;
+}
+
+/* Citação no editor: linhas do bloco ganham respiro lateral */
+body:is(.theme-light, .theme-dark) .markdown-source-view .cm-scroller .cm-line.HyperMD-quote {
+  padding-inline-start: 18px !important;
+  padding-inline-end: 14px !important;
+  border-radius: 14px;
+}
+/* Citação na reading view: raio novo e respiro vertical */
+body:is(.theme-light, .theme-dark) .markdown-rendered blockquote {
+  border-radius: 14px !important;
+  padding-block: 10px !important;
+}
+
+/* Bloco de código na reading view: recheio interno */
+body:is(.theme-light, .theme-dark) .markdown-rendered pre {
+  padding: 14px 18px !important;
+}
+body:is(.theme-light, .theme-dark) .markdown-rendered pre code {
+  padding: 0 !important;
+}
+
+/* Tabelas: células com mais ar; cantos externos arredondados */
+body:is(.theme-light, .theme-dark) .markdown-rendered table th,
+body:is(.theme-light, .theme-dark) .markdown-rendered table td {
+  padding: 8px 14px !important;
+}
+
+/* Squircle nos que ainda não tinham */
+@supports (corner-shape: superellipse(1.65)) {
+  body:is(.theme-light, .theme-dark) .markdown-rendered blockquote,
+  body:is(.theme-light, .theme-dark) .markdown-source-view .cm-scroller .cm-line.HyperMD-quote,
+  body:is(.theme-light, .theme-dark) .markdown-embed {
+    corner-shape: superellipse(1.65);
+  }
+}
+
+/* ===========================================================
+   Quarta leva (03/09/2026): craft do oktavio.vercel.app.
+   Superfície = --white (100%) sobre o bg #FAF9F5, borda 1px --line
+   (#EAEAEA), e nos cartões o "shell" de duas camadas do site
+   (--shadow-lift): 4px de respiro na cor da página + anel 1px a 6%
+   + duas sombras curtas. Como o spread do box-shadow segue o raio,
+   o anel externo sai concêntrico (14 + 4 = 18) sem wrapper.
+   Editor (Live Preview): o bloco de código é feito de linhas, então
+   leva só a camada interna (branco + linha); o shell completo fica
+   na reading view, nos callouts e nos embeds.
+   =========================================================== */
+body.theme-light {
+  --surface: #ffffff;
+  --line: #eaeaea;
+  --page: #FAF9F5;
+  --hover: #f4f2ee;                 /* --row-hover */
+  --check-border: #d4d4d4;
+  --tag-lift: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shell:
+    0 0 0 4px var(--page),
+    0 0 0 5px rgba(0, 0, 0, 0.06),
+    0 1px 2px 3px rgba(0, 0, 0, 0.06),
+    0 2px 4px 4px rgba(0, 0, 0, 0.04);
+
+  --blockquote-background-light: var(--surface);
+  --table-border-color: var(--line);
+  --tag-background: var(--surface);
+  --tag-background-hover: #f4f2ee;          /* --row-hover do site */
+  --tag-border-color: var(--line);
+  --tag-border-color-hover: var(--line);
+}
+
+/* Cartões com shell: código (reading), callouts, embeds */
+body:is(.theme-light, .theme-dark) .markdown-rendered pre,
+body:is(.theme-light, .theme-dark) .callout,
+body:is(.theme-light, .theme-dark) .markdown-embed {
+  background: var(--surface) !important;
+  border: 1px solid var(--line) !important;
+  box-shadow: var(--shell) !important;
+  margin-block: 14px !important;        /* o shell sangra 5px pra fora */
+}
+body:is(.theme-light, .theme-dark) .callout .callout-content { background: transparent !important; }
+
+/* Citação: superfície branca + linha, sem shell (é texto, não cartão) */
+body:is(.theme-light, .theme-dark) .markdown-rendered blockquote,
+body:is(.theme-light, .theme-dark) .markdown-source-view .cm-scroller .cm-line.HyperMD-quote {
+  background: var(--surface) !important;
+}
+body:is(.theme-light, .theme-dark) .markdown-rendered blockquote {
+  border: 1px solid var(--line) !important;
+}
+
+/* Tabela: células brancas, cabeçalho no --row-hover do site */
+body:is(.theme-light, .theme-dark) .markdown-rendered table td { background: var(--surface) !important; }
+body:is(.theme-light, .theme-dark) .markdown-rendered table th { background: var(--hover) !important; }
+
+/* Tags: etiqueta branca com linha; leve elevação */
+body:is(.theme-light, .theme-dark) .tag {   /* .cm-hashtag fica de fora: no editor a tag é vários spans */
+  background: var(--surface);
+  border: 1px solid var(--line);
+  box-shadow: var(--tag-lift);
+}
+
+/* Checkbox desmarcada: caixinha branca com linha */
+body:is(.theme-light, .theme-dark) input[type="checkbox"]:not(:checked) {
+  background: var(--surface);
+  border-color: var(--check-border);
+}
+
+/* Chrome: aba ativa e item ativo do explorer viram superfície branca */
+body:is(.theme-light, .theme-dark) .workspace-tab-header.is-active {
+  background: var(--surface) !important;
+  box-shadow: 0 0 0 1px var(--line), 0 1px 2px rgba(0, 0, 0, 0.04) !important;
+}
+body:is(.theme-light, .theme-dark) .nav-file-title.is-active,
+body:is(.theme-light, .theme-dark) .nav-folder-title.is-active {
+  background: var(--surface) !important;
+  box-shadow: 0 0 0 1px var(--line) !important;
+}
+
+/* ===========================================================
+   Tabela (03/09/2026, correção): o contorno pontudo vinha do
+   fundo retangular de `thead tr` (Border) e das bordas colapsadas
+   das células. Agora a TABELA é o cartão: borda 1px --line, raio
+   14px, overflow cortando o miolo; células só com divisórias
+   internas; nenhum fundo em <tr>. Vale na reading view e no
+   Live Preview.
+   =========================================================== */
+body:is(.theme-light, .theme-dark) :is(.markdown-rendered, .markdown-source-view.mod-cm6.is-live-preview) table {
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 14px !important;
+  overflow: hidden !important;
+  background: var(--surface) !important;
+}
+body:is(.theme-light, .theme-dark) :is(.markdown-rendered, .markdown-source-view.mod-cm6.is-live-preview) table tr,
+body:is(.theme-light, .theme-dark) :is(.markdown-rendered, .markdown-source-view.mod-cm6.is-live-preview) table thead tr {
+  background: transparent !important;
+}
+body:is(.theme-light, .theme-dark) :is(.markdown-rendered, .markdown-source-view.mod-cm6.is-live-preview) table :is(th, td) {
+  border: 0 !important;
+  border-right: 1px solid var(--line) !important;
+  border-bottom: 1px solid var(--line) !important;
+  padding: 8px 14px !important;
+}
+body:is(.theme-light, .theme-dark) :is(.markdown-rendered, .markdown-source-view.mod-cm6.is-live-preview) table :is(th, td):last-child {
+  border-right: 0 !important;
+}
+body:is(.theme-light, .theme-dark) :is(.markdown-rendered, .markdown-source-view.mod-cm6.is-live-preview) table tr:last-child :is(th, td) {
+  border-bottom: 0 !important;
+}
+body:is(.theme-light, .theme-dark) :is(.markdown-rendered, .markdown-source-view.mod-cm6.is-live-preview) table th {
+  background: var(--hover) !important;
+}
+body:is(.theme-light, .theme-dark) :is(.markdown-rendered, .markdown-source-view.mod-cm6.is-live-preview) table td {
+  background: var(--surface) !important;
+}
+@supports (corner-shape: superellipse(1.65)) {
+  body:is(.theme-light, .theme-dark) :is(.markdown-rendered, .markdown-source-view.mod-cm6.is-live-preview) table {
+    corner-shape: superellipse(1.65);
+  }
+}
+
+/* ===========================================================
+   DARK (03/09/2026): superfícies do oktavio.vercel.app no escuro,
+   lidas de styles/tokens/colors.css (OKLCH → sRGB de 8 bits):
+     --bg      oklch(0.179 0.026 246) → #07121c   (fundo)
+     --white   oklch(0.2193 0.024 246) → #111c25  (superfície: no
+               escuro "branco" é um degrau ACIMA do fundo, azulado)
+     --line    oklch(0.2993 0.02 246)  → #262f37
+     --row-hover = --gray-955 oklch(0.2193 0.02 246) → #131b23
+   O site zera TODAS as sombras no escuro (--shadow-a* = 0): o
+   "shell" vira só respiro de 4px e a separação vem da borda de
+   1px --line. Cores de sintaxe: a paleta ANSI original do Ghostty
+   (pastéis feitos para fundo escuro), sem escurecer.
+   =========================================================== */
+body.theme-dark {
+  --surface: #111c25;
+  --line: #262f37;
+  --page: #07121c;
+  --hover: #131b23;
+  --check-border: #3a444d;
+  --tag-lift: none;
+  --shell: 0 0 0 4px var(--page);
+
+  --text-normal: #f2f2f2;             /* --ink 0.96 */
+  --text-muted: #909daa;              /* --muted oklch(0.69 0.024 246) */
+  --text-faint: #7e8891;              /* --faint oklch(0.62 0.018 246) */
+  --divider-color: var(--line);
+  --tab-outline-color: transparent;
+
+  --code-comment: #666666;
+  --code-keyword: #b294bb;
+  --code-string: #b5bd68;
+  --code-function: #81a2be;
+  --code-property: #8abeb7;
+  --code-value: #f0c674;
+  --code-tag: #cc6666;
+  --code-important: #d54e53;
+  --code-punctuation: var(--text-muted);
+
+  --blockquote-border-thickness: 2px;
+  --blockquote-border-color: rgba(255, 255, 255, 0.25);
+  --blockquote-background-dark: var(--surface);
+  --table-header-background-dark: var(--hover);
+  --table-border-color: var(--line);
+  --checkbox-radius: 5px;
+  --checkbox-color: var(--interactive-accent);
+  --checkbox-color-hover: var(--interactive-accent);
+  --tag-radius: 6px;
+  --tag-background: var(--surface);
+  --tag-background-hover: var(--hover);
+  --tag-border-color: var(--line);
+  --tag-border-color-hover: var(--line);
+  --text-highlight-bg: rgba(240, 198, 116, 0.25);
+  --text-highlight-bg-active: rgba(240, 150, 80, 0.3);
+  --embed-border-radius: 14px;
+  --embed-border-start: 2px solid rgba(255, 255, 255, 0.15);
+  --blockquote-padding: 14px;
+  --embed-padding: 10px 18px;
+  --tag-padding-x: 0.8em;
+  --tag-padding-y: 0.3em;
+}
+/* citação no editor (Live Preview) também usa a superfície no escuro */
+body.theme-dark .markdown-source-view .cm-scroller .cm-line.HyperMD-quote {
+  background: var(--surface) !important;
+}
+
+/* ===========================================================
+   PADRÃO DO EMBED PARA TODO BLOCO (03/09/2026, correção)
+   O embed é a referência: superfície, borda 1px --line em volta
+   inteira e o shell completo. Os callouts perdiam as laterais
+   porque ocupam 100% da largura e o shell (5px pra fora) era
+   cortado pelo container — o embed tem folga, os callouts não.
+   Aqui todo bloco ganha a mesma folga (6px de cada lado) e o
+   mesmo tratamento. A cor do tipo do callout fica só no ícone
+   (sem barra lateral, como o embed não tem).
+   Exceção: as linhas do editor (código e citação no Live Preview)
+   são uma por vez, então levam superfície + linha, sem shell.
+   =========================================================== */
+body:is(.theme-light, .theme-dark) :is(.markdown-rendered pre, .callout, .markdown-embed, .markdown-rendered blockquote) {
+  background: var(--surface) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 14px !important;
+  box-shadow: var(--shell) !important;
+  margin-block: 14px !important;
+  margin-inline: 6px !important;        /* folga pro shell não ser cortado */
+}
+body:is(.theme-light, .theme-dark) .callout .callout-icon {
+  color: rgb(var(--callout-color)) !important;
+}
+body:is(.theme-light, .theme-dark) .callout .callout-title-inner { color: var(--text-normal); }
+
+/* Tabela: mesmo shell; o wrapper (overflow) precisa de folga */
+body:is(.theme-light, .theme-dark) :is(.markdown-rendered, .markdown-source-view.mod-cm6.is-live-preview) table {
+  box-shadow: var(--shell) !important;
+}
+body:is(.theme-light, .theme-dark) .markdown-source-view .table-wrapper { padding: 6px !important; }
+body:is(.theme-light, .theme-dark) .markdown-rendered table {
+  margin: 6px !important;
+  width: calc(100% - 12px) !important;
+}
+
+/* ===========================================================
+   BLOCOS DE CÓDIGO NO LIVE PREVIEW com o shell do embed (03/09/2026)
+   1) Bloco renderizado (fora de edição): é um widget
+      `.cm-preview-code-block` com <pre> dentro — não era pego pelas
+      regras de `.markdown-rendered pre`. O <pre> vira cartão; o
+      wrapper é zerado pra não somar uma segunda borda.
+   2) Bloco em edição: uma `.cm-line` por linha. Cada linha carrega o
+      shell inteiro, e `clip-path` com inset negativo só deixa o
+      anel aparecer nos lados certos: linha de abertura = topo +
+      laterais, miolo = só laterais, linha de fechamento = base +
+      laterais. O spread do box-shadow segue o raio, então o anel
+      dos cantos sai concêntrico (14 → 18) sem entalhe.
+   =========================================================== */
+body:is(.theme-light, .theme-dark) .markdown-source-view.mod-cm6 .cm-preview-code-block {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+body:is(.theme-light, .theme-dark) .markdown-source-view.mod-cm6 .cm-preview-code-block pre {
+  background: var(--surface) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 14px !important;
+  box-shadow: var(--shell) !important;
+  margin-block: 14px !important;
+  margin-inline: 6px !important;
+  padding: 14px 18px !important;
+}
+body:is(.theme-light, .theme-dark) .markdown-source-view.mod-cm6 .cm-preview-code-block pre code { padding: 0 !important; }
+@supports (corner-shape: superellipse(1.65)) {
+  body:is(.theme-light, .theme-dark) .markdown-source-view.mod-cm6 .cm-preview-code-block pre {
+    corner-shape: superellipse(1.65);
+  }
+}
+
+/* Em edição: shell por linha, recortado */
+body:is(.theme-light, .theme-dark) .markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock,
+body:is(.theme-light, .theme-dark) .markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock-bg {
+  box-shadow: var(--shell) !important;
+  clip-path: inset(0 -6px 0 -6px);                 /* miolo: só as laterais */
+}
+body:is(.theme-light, .theme-dark) .markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock-begin,
+body:is(.theme-light, .theme-dark) .markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock-begin-bg {
+  clip-path: inset(-6px -6px 0 -6px);              /* abertura: topo + laterais */
+}
+body:is(.theme-light, .theme-dark) .markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock-end,
+body:is(.theme-light, .theme-dark) .markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock-end-bg {
+  clip-path: inset(0 -6px -6px -6px);              /* fechamento: base + laterais */
+}
+/* a linha logo após o bloco ganha respiro pro anel da base (5px) */
+body:is(.theme-light, .theme-dark) .markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock-end + .cm-line {
+  padding-top: 10px !important;
+}
+
+/* Régua horizontal (--- renderizado): o Border a tinge de azul; aqui
+   fica na --line neutra, como os outros contornos (03/09/2026). */
+body:is(.theme-light, .theme-dark) {
+  --hr-color: var(--line);
+}
+
+/* ===========================================================
+   CITAÇÃO E CALLOUT EM EDIÇÃO (03/09/2026, correção)
+   Com o cursor dentro, cada linha de `> ...` (inclusive `> [!tipo]`)
+   é uma .cm-line própria. Antes cada uma virava um "comprimido" de
+   14px de raio (entalhe entre as linhas) e ainda levava 8px de
+   padding-bottom do gap de parágrafo. Agora a sequência de linhas é
+   UM bloco, tratado como o código em edição: primeira = topo +
+   raio superior, meio = só laterais, última = base + raio inferior,
+   linha única = os quatro cantos. O shell vem do clip-path (anel só
+   nos lados certos). Sem padding vertical no meio.
+   =========================================================== */
+body:is(.theme-light, .theme-dark) .markdown-source-view.mod-cm6 .cm-scroller .cm-line.HyperMD-quote {
+  background: var(--surface) !important;
+  border-inline: 1px solid var(--line) !important;
+  border-radius: 0 !important;
+  box-shadow: var(--shell) !important;
+  clip-path: inset(0 -6px 0 -6px);
+  padding-block: 0 !important;
+  padding-inline: 18px 14px !important;
+}
+/* primeira linha do bloco */
+body:is(.theme-light, .theme-dark) .markdown-source-view.mod-cm6 .cm-scroller .cm-line.HyperMD-quote:not(.HyperMD-quote + .HyperMD-quote) {
+  border-top: 1px solid var(--line) !important;
+  border-radius: 14px 14px 0 0 !important;
+  clip-path: inset(-6px -6px 0 -6px);
+  padding-top: 10px !important;
+}
+/* última linha do bloco */
+body:is(.theme-light, .theme-dark) .markdown-source-view.mod-cm6 .cm-scroller .cm-line.HyperMD-quote:not(:has(+ .HyperMD-quote)) {
+  border-bottom: 1px solid var(--line) !important;
+  border-radius: 0 0 14px 14px !important;
+  clip-path: inset(0 -6px -6px -6px);
+  padding-bottom: 10px !important;
+}
+/* bloco de uma linha só */
+body:is(.theme-light, .theme-dark) .markdown-source-view.mod-cm6 .cm-scroller .cm-line.HyperMD-quote:not(.HyperMD-quote + .HyperMD-quote):not(:has(+ .HyperMD-quote)) {
+  border-radius: 14px !important;
+  clip-path: inset(-6px);
+}
+/* respiro entre o fim do bloco e a linha seguinte (anel de 5px) */
+body:is(.theme-light, .theme-dark) .markdown-source-view.mod-cm6 .cm-line.HyperMD-quote:not(:has(+ .HyperMD-quote)) + .cm-line:not(.HyperMD-quote) {
+  padding-top: 10px !important;
+}

@@ -1,0 +1,9 @@
+{
+  "id": "terminal-cursor",
+  "name": "Terminal Cursor",
+  "version": "1.0.0",
+  "minAppVersion": "1.0.0",
+  "description": "Desenha o cursor principal do editor como bloco sólido (estilo Terminal.app), sem piscar. O visual vem do snippet terminal-editor.css.",
+  "author": "oktavio",
+  "isDesktopOnly": false
+}

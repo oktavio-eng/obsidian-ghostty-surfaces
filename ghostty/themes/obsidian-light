@@ -1,0 +1,25 @@
+# ~/.config/ghostty/themes/obsidian-light
+# Espelha o modo claro do Obsidian (terminal-editor.css + ghostty-blocks.css).
+background = #FAF9F5
+foreground = #000000
+cursor-color = #8a8985
+cursor-text = #000000
+selection-background = #cfe5fb
+selection-foreground = #000000
+
+palette = 0=#000000
+palette = 1=#b3413f
+palette = 2=#5f7a1f
+palette = 3=#9a6a00
+palette = 4=#3f6f9f
+palette = 5=#7f5a92
+palette = 6=#3a7a72
+palette = 7=#d0cfca
+palette = 8=#8a8a85
+palette = 9=#cc5a57
+palette = 10=#6f8f26
+palette = 11=#b07a10
+palette = 12=#4f83b8
+palette = 13=#9570a8
+palette = 14=#4a9187
+palette = 15=#ffffff
