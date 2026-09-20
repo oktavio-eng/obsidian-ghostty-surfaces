@@ -501,3 +501,165 @@ body:is(.theme-light, .theme-dark) .markdown-source-view.mod-cm6 .cm-embed-block
   outline: none !important;
   border-color: transparent !important;
 }
+
+/* ===========================================================
+   BARRINHA À ESQUERDA EM EDIÇÃO (03/09/2026)
+   Ao editar citação/callout sobrava uma barra fina na 1ª linha.
+   Vinha de duas fontes:
+     - a barrinha de citação do editor (`.cm-blockquote-border`,
+       usa --blockquote-border-*), redundante com o cartão;
+     - o indicador de hover de linha do Border (`::after` em
+       `.cm-content > div`), que o terminal-editor.css só escondia
+       na linha ATIVA — na linha sob o mouse ele aparecia.
+   O cartão já delimita o bloco; as duas saem.
+   =========================================================== */
+body:is(.theme-light, .theme-dark) .markdown-source-view.mod-cm6 .cm-blockquote-border {
+  border-inline-start-color: transparent !important;
+  border-left-color: transparent !important;
+  background: transparent !important;
+}
+body:is(.theme-light, .theme-dark) .markdown-source-view.mod-cm6 .cm-content > div::after {
+  display: none !important;
+}
+
+/* ---- Barrinha à esquerda: causa real (03/09/2026, 2ª correção) ----
+   Lido no app.css do próprio Obsidian: a barra é o ::before de
+   `.HyperMD-quote` (e de `.cm-blockquote-border`) com
+   `border-inline-start: var(--blockquote-border-thickness) solid
+   var(--blockquote-border-color)`. O Border só zera a LARGURA
+   (`width: 0 !important`), mas a borda de 2px continua desenhada —
+   e vazava também no "❯" da linha ativa, que usa o mesmo ::before.
+   Zera a borda no pseudo-elemento. */
+body:is(.theme-light, .theme-dark) .markdown-source-view.mod-cm6 .cm-line.HyperMD-quote::before,
+body:is(.theme-light, .theme-dark) .markdown-source-view.mod-cm6 .cm-blockquote-border::before {
+  border: 0 !important;
+  border-inline-start: 0 !important;
+}
+
+/* ===========================================================
+   FUNDO GERAL DO DARK = --bg DO SITE (03/09/2026)
+   O Style Settings só alimenta `--background-mod-root-split` (o
+   painel principal). A janela, a sidebar, a barra de título e os
+   modais usam `--background-primary`/`--background-secondary`, que
+   no Border escuro são o cinza neutro padrão (#1a1a1a) — daí as
+   superfícies azuladas (#111c25) sobre um fundo cinza. Aqui o azul
+   do site (oklch(0.179 0.026 246) → #07121c) vale para tudo, sem
+   depender do Style Settings.
+   =========================================================== */
+body.theme-dark {
+  --background-primary: #07121c;
+  --background-primary-alt: #07121c;
+  --background-secondary: #07121c;
+  --background-mod-root-split: #07121c;
+  --terminal-bg: #07121c;
+}
+
+/* ===========================================================
+   UM CIANO SÓ (03/09/2026)
+   Havia dois azuis: o acento/prompt `❯` (#07b0f2) e o #3CB1DA que o
+   Style Settings gravou em TODOS os `--color-*-rgb` — as barrinhas
+   dos títulos (`--h1..h6-accent-color` = --color-red/orange/…),
+   ícones de callout, checkbox e código inline herdavam esse outro
+   tom. Tudo passa a ser #07b0f2, nos dois temas.
+   =========================================================== */
+body:is(.theme-light, .theme-dark) {
+  --cyan: #07b0f2;
+  --cyan-rgb: 7, 176, 242;
+
+  --color-red: var(--cyan);    --color-red-rgb: var(--cyan-rgb);
+  --color-orange: var(--cyan); --color-orange-rgb: var(--cyan-rgb);
+  --color-yellow: var(--cyan); --color-yellow-rgb: var(--cyan-rgb);
+  --color-green: var(--cyan);  --color-green-rgb: var(--cyan-rgb);
+  --color-cyan: var(--cyan);   --color-cyan-rgb: var(--cyan-rgb);
+  --color-blue: var(--cyan);   --color-blue-rgb: var(--cyan-rgb);
+  --color-purple: var(--cyan); --color-purple-rgb: var(--cyan-rgb);
+  --color-pink: var(--cyan);   --color-pink-rgb: var(--cyan-rgb);
+
+  --h1-accent-color: var(--cyan);
+  --h2-accent-color: var(--cyan);
+  --h3-accent-color: var(--cyan);
+  --h4-accent-color: var(--cyan);
+  --h5-accent-color: var(--cyan);
+  --h6-accent-color: var(--cyan);
+
+  --text-accent: var(--cyan);
+  --text-accent-hover: var(--cyan);
+  --interactive-accent: var(--cyan);
+  --interactive-accent-hover: var(--cyan);
+  --link-color: var(--cyan);
+  --tag-color: var(--cyan);
+}
+/* o "❯" da linha ativa usava o hex direto; passa a seguir a variável */
+.markdown-source-view.mod-cm6 .cm-content > .cm-line.cm-active::before {
+  color: var(--cyan, #07b0f2);
+}
+
+/* ===========================================================
+   DARK: UM DEGRAU A MAIS DE SUPERFÍCIE (03/09/2026)
+   O cabeçalho da tabela (#131b23 sobre o corpo #111c25) ficava
+   quase da cor do corpo e o texto muted sumia. O site resolve com
+   camadas: no ícone de documento a página (#111c25) tem linhas num
+   tom acima (--line). Aqui: --surface-2 = 65% superfície + 35%
+   linha (#18232b) só no cabeçalho, com texto em --ink e peso 600.
+   =========================================================== */
+body.theme-dark {
+  --surface-2: #18232b;
+}
+body.theme-dark :is(.markdown-rendered, .markdown-source-view.mod-cm6.is-live-preview) table th {
+  background: var(--surface-2) !important;
+  color: var(--text-normal) !important;
+  font-weight: 600 !important;
+}
+
+/* ===========================================================
+   DARK: HIERARQUIA DE TEXTO DO SITE (03/09/2026)
+   Lida em main.css do site: `body`/h1–h3/`a` = --ink (#f2f2f2, o
+   "branco"), `p` = --muted (oklch(0.69 0.024 246) = #909daa, 6.8:1),
+   meta/legendas = --faint (#7e8891), sublinhado do link = --line
+   (vira --ink no hover). Ou seja: prosa em cinza azulado; títulos,
+   ênfase e links em branco. UI do Obsidian (--text-normal) fica em
+   --ink como no site.
+   Só no escuro — o claro não muda.
+   =========================================================== */
+body.theme-dark {
+  --ink: #f2f2f2;
+  --prose: #909daa;               /* --muted */
+  --faint: #7e8891;
+  --terminal-fg: var(--prose);    /* prosa do editor */
+  --list-marker-color: var(--faint);
+  --code-normal: var(--ink);
+}
+
+/* Editor: o que é "ink" no site */
+body.theme-dark .markdown-source-view.mod-cm6 :is(
+  .cm-header, .HyperMD-header, .cm-strong, .cm-link, .cm-hmd-internal-link,
+  .cm-url, .cm-inline-code, .inline-title
+) {
+  color: var(--ink) !important;
+}
+body.theme-dark .markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock:not(.HyperMD-codeblock-begin):not(.HyperMD-codeblock-end) {
+  color: var(--ink) !important;   /* texto de código legível; tokens mantêm as cores */
+}
+
+/* Reading view: prosa muted; títulos, ênfase, código e cabeçalho de tabela em ink */
+body.theme-dark .markdown-rendered { color: var(--prose); }
+body.theme-dark .markdown-rendered :is(h1, h2, h3, h4, h5, h6, strong, b, th, code, .callout-title) {
+  color: var(--ink);
+}
+
+/* Links: ink com sublinhado --line, ink no hover (como .inline-link do site) */
+body.theme-dark :is(
+  .markdown-rendered a, .markdown-source-view.mod-cm6 .cm-link,
+  .markdown-source-view.mod-cm6 .cm-hmd-internal-link, .markdown-source-view.mod-cm6 .cm-url
+) {
+  color: var(--ink) !important;
+  text-decoration: underline;
+  text-decoration-color: var(--line);
+  text-underline-offset: 3px;
+}
+body.theme-dark :is(
+  .markdown-rendered a:hover, .markdown-source-view.mod-cm6 .cm-link:hover,
+  .markdown-source-view.mod-cm6 .cm-hmd-internal-link:hover
+) {
+  text-decoration-color: var(--ink);
+}
