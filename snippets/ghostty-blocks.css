@@ -501,3 +501,23 @@ body:is(.theme-light, .theme-dark) .markdown-source-view.mod-cm6 .cm-embed-block
   outline: none !important;
   border-color: transparent !important;
 }
+
+/* ===========================================================
+   BARRINHA À ESQUERDA EM EDIÇÃO (03/09/2026)
+   Ao editar citação/callout sobrava uma barra fina na 1ª linha.
+   Vinha de duas fontes:
+     - a barrinha de citação do editor (`.cm-blockquote-border`,
+       usa --blockquote-border-*), redundante com o cartão;
+     - o indicador de hover de linha do Border (`::after` em
+       `.cm-content > div`), que o terminal-editor.css só escondia
+       na linha ATIVA — na linha sob o mouse ele aparecia.
+   O cartão já delimita o bloco; as duas saem.
+   =========================================================== */
+body:is(.theme-light, .theme-dark) .markdown-source-view.mod-cm6 .cm-blockquote-border {
+  border-inline-start-color: transparent !important;
+  border-left-color: transparent !important;
+  background: transparent !important;
+}
+body:is(.theme-light, .theme-dark) .markdown-source-view.mod-cm6 .cm-content > div::after {
+  display: none !important;
+}

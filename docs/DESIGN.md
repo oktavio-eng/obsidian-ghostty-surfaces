@@ -56,6 +56,7 @@ Vem do `--shadow-lift` do site, usado no gráfico de contribuições e no ícone
 - **Régua `---` azulada:** o Border a tingia de azul; agora `--hr-color: var(--line)`.
 - **Callouts sem laterais:** o shell era cortado pelo container (ver "Folga").
 - **Tabela com contorno pontudo:** ver acima.
+- **Barrinha fina à esquerda ao editar citação/callout:** vinha da barrinha de citação do editor (`.cm-blockquote-border`) e do indicador de hover de linha do Border (`::after` em `.cm-content > div`, que só estava escondido na linha ativa). Ambos escondidos; o cartão já delimita o bloco.
 - **Anel de hover nos widgets do Live Preview:** o Obsidian desenha um anel azulado no `.cm-embed-block` ao passar o mouse, duplicando o shell. Removido (exceto em `.markdown-embed`, cujo shell vive no próprio wrapper); o botão `</>` de editar continua aparecendo no hover.
 
 ## Limitações conhecidas
