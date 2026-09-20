@@ -610,3 +610,56 @@ body.theme-dark :is(.markdown-rendered, .markdown-source-view.mod-cm6.is-live-pr
   color: var(--text-normal) !important;
   font-weight: 600 !important;
 }
+
+/* ===========================================================
+   DARK: HIERARQUIA DE TEXTO DO SITE (03/09/2026)
+   Lida em main.css do site: `body`/h1–h3/`a` = --ink (#f2f2f2, o
+   "branco"), `p` = --muted (oklch(0.69 0.024 246) = #909daa, 6.8:1),
+   meta/legendas = --faint (#7e8891), sublinhado do link = --line
+   (vira --ink no hover). Ou seja: prosa em cinza azulado; títulos,
+   ênfase e links em branco. UI do Obsidian (--text-normal) fica em
+   --ink como no site.
+   Só no escuro — o claro não muda.
+   =========================================================== */
+body.theme-dark {
+  --ink: #f2f2f2;
+  --prose: #909daa;               /* --muted */
+  --faint: #7e8891;
+  --terminal-fg: var(--prose);    /* prosa do editor */
+  --list-marker-color: var(--faint);
+  --code-normal: var(--ink);
+}
+
+/* Editor: o que é "ink" no site */
+body.theme-dark .markdown-source-view.mod-cm6 :is(
+  .cm-header, .HyperMD-header, .cm-strong, .cm-link, .cm-hmd-internal-link,
+  .cm-url, .cm-inline-code, .inline-title
+) {
+  color: var(--ink) !important;
+}
+body.theme-dark .markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock:not(.HyperMD-codeblock-begin):not(.HyperMD-codeblock-end) {
+  color: var(--ink) !important;   /* texto de código legível; tokens mantêm as cores */
+}
+
+/* Reading view: prosa muted; títulos, ênfase, código e cabeçalho de tabela em ink */
+body.theme-dark .markdown-rendered { color: var(--prose); }
+body.theme-dark .markdown-rendered :is(h1, h2, h3, h4, h5, h6, strong, b, th, code, .callout-title) {
+  color: var(--ink);
+}
+
+/* Links: ink com sublinhado --line, ink no hover (como .inline-link do site) */
+body.theme-dark :is(
+  .markdown-rendered a, .markdown-source-view.mod-cm6 .cm-link,
+  .markdown-source-view.mod-cm6 .cm-hmd-internal-link, .markdown-source-view.mod-cm6 .cm-url
+) {
+  color: var(--ink) !important;
+  text-decoration: underline;
+  text-decoration-color: var(--line);
+  text-underline-offset: 3px;
+}
+body.theme-dark :is(
+  .markdown-rendered a:hover, .markdown-source-view.mod-cm6 .cm-link:hover,
+  .markdown-source-view.mod-cm6 .cm-hmd-internal-link:hover
+) {
+  text-decoration-color: var(--ink);
+}

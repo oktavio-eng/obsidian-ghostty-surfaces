@@ -17,6 +17,19 @@ Como as superfícies do Obsidian foram alinhadas ao site (`oktavio.vercel.app`) 
 
 Fixos por pedido: `line-height` 1.5, gap de parágrafo 8px, acento `#07b0f2`, texto preto e seleção azul do macOS no claro.
 
+## Hierarquia de texto (dark)
+
+Lida em `main.css` do site. A prosa é cinza azulado; títulos, ênfase e links são o "branco":
+
+| Papel | Token | Dark |
+|---|---|---|
+| Títulos (h1–h3), links, texto padrão | `--ink` | `#f2f2f2` |
+| Parágrafos (`p`) | `--muted` | `oklch(0.69 0.024 246)` = `#909daa` (6.8:1 sobre o fundo) |
+| Metadados, marcadores de lista | `--faint` | `#7e8891` |
+| Sublinhado de link | `--line` → `--ink` no hover | `#262f37` → `#f2f2f2` |
+
+No Obsidian: prosa do editor e da reading view em `--muted`; títulos, `**negrito**`, links, código inline, texto de código e cabeçalho de tabela em `--ink`; UI (`--text-normal`) em `--ink`. A seleção do site é `--ink` como fundo e `--bg` como texto; o Obsidian não inverte a cor do texto na camada de seleção do CodeMirror, então a seleção escura segue translúcida.
+
 ## O padrão de superfície
 
 Vem do `--shadow-lift` do site, usado no gráfico de contribuições e no ícone de documento:
