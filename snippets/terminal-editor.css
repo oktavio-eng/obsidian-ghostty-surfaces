@@ -1,0 +1,276 @@
+/* ===========================================================
+   terminal-editor.css — área de edição igual ao Terminal.app
+   Baseado no perfil "Basic" real: SF Mono Regular 18pt,
+   antialias, cursor de bloco sem piscar, preto sobre branco
+   (modo escuro: claro sobre cinza-escuro).
+   Afeta só o editor (Live Preview / Source). Reading view fica igual.
+
+   DEPENDE do plugin local "terminal-cursor" (.obsidian/plugins/terminal-cursor):
+   sem ele o cursor principal é o caret nativo (fino, piscando) e este CSS
+   só afeta cursores de seleção/multi-cursor.
+   =========================================================== */
+
+:root {
+  --terminal-font: "Berkeley Mono", "SF Mono", "Geist Mono", Menlo, monospace;  /* Berkeley = fonte do Ghostty; cai pro SF Mono se não estiver instalada */
+  --terminal-font-size: 16px;         /* Terminal usa 18pt; 16px ficou melhor no vault */
+  --terminal-line-height: 1.5;        /* espaçamento normal do Obsidian (Terminal usa ~1.2, ficou grudado) */
+  --terminal-cursor-width: 0.6em;     /* 1 caractere (SF Mono = 600/1000 em) */
+
+  /* Estética Ghostty (Atom One Light) — modo claro (03/09/2026) */
+  --terminal-bg: #FAF9F5;
+  --terminal-fg: #000000;
+  /* Cursor cinza translúcido: a letra por baixo continua visível.
+     (Tentativa com branco + blend "difference" saiu branco sobre o bege — revertida.) */
+  --terminal-cursor-color: rgba(0, 0, 0, 0.45);
+  --terminal-cursor-blend: normal;
+  --terminal-cursor-hollow: rgba(0, 0, 0, 0.6);    /* contorno do bloco sem foco */
+  --terminal-caret: rgba(0, 0, 0, 0.45);           /* caret nativo (título, campos), como era */
+  --terminal-selection: rgba(179, 215, 255, 0.6);  /* azul de seleção do macOS */
+}
+.theme-dark {
+  /* Perfil Basic — modo escuro */
+  --terminal-bg: var(--background-mod-root-split, #07121c);  /* mesmo fundo da reading view (--bg escuro do site) */
+  --terminal-fg: #f2f2f2;                /* --ink escuro do site */
+  --terminal-cursor-color: rgba(255, 255, 255, 0.45);
+  --terminal-cursor-blend: normal;
+  --terminal-cursor-hollow: rgba(255, 255, 255, 0.45);
+  --terminal-caret: rgba(255, 255, 255, 0.45);
+  --terminal-selection: rgba(255, 255, 255, 0.2);
+}
+
+/* ---- Fundo e texto do editor ---- */
+.markdown-source-view.mod-cm6,
+.markdown-source-view.mod-cm6 .cm-editor,
+.markdown-source-view.mod-cm6 .cm-scroller {
+  background-color: var(--terminal-bg) !important;
+}
+.markdown-source-view.mod-cm6 .cm-content,
+.markdown-source-view.mod-cm6 .cm-line {
+  color: var(--terminal-fg) !important;
+}
+
+/* ---- Fonte do editor ---- */
+.markdown-source-view.mod-cm6 .cm-editor,
+.markdown-source-view.mod-cm6 .cm-scroller,
+.markdown-source-view.mod-cm6 .cm-content,
+.markdown-source-view.mod-cm6 .cm-line {
+  font-family: var(--terminal-font) !important;
+  font-size: var(--terminal-font-size) !important;
+  line-height: var(--terminal-line-height) !important;
+  font-weight: 400;
+  letter-spacing: 0;
+  font-variant-ligatures: none;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Cabeçalhos, código, listas, links: mesma fonte e mesmo tamanho —
+   no terminal não existe hierarquia tipográfica */
+.markdown-source-view.mod-cm6 .HyperMD-header,
+.markdown-source-view.mod-cm6 .HyperMD-header .cm-header,
+.markdown-source-view.mod-cm6 .cm-header,
+.markdown-source-view.mod-cm6 .cm-inline-code,
+.markdown-source-view.mod-cm6 .HyperMD-codeblock,
+.markdown-source-view.mod-cm6 .cm-hmd-codeblock,
+.markdown-source-view.mod-cm6 .cm-link,
+.markdown-source-view.mod-cm6 .cm-hmd-internal-link {
+  font-family: var(--terminal-font) !important;
+  font-size: var(--terminal-font-size) !important;
+  line-height: var(--terminal-line-height) !important;
+}
+
+/* Headings (#, ##, ####...) em negrito — a regra do .cm-line acima
+   força 400 e vencia o peso padrão dos cabeçalhos */
+.markdown-source-view.mod-cm6 .HyperMD-header,
+.markdown-source-view.mod-cm6 .HyperMD-header .cm-header,
+.markdown-source-view.mod-cm6 .cm-header {
+  font-weight: 700 !important;
+}
+
+/* Código inline sem caixa — no terminal é tudo texto */
+.markdown-source-view.mod-cm6 .cm-inline-code {
+  background: transparent !important;
+  color: var(--terminal-fg) !important;
+}
+
+/* ---- Bloco de código: caixa sutil no editor (30/08/2026) ----
+   Antes era transparente como o inline, mas sem delimitação um
+   prompt longo colado vira texto corrido — o bloco só aparecia na
+   Reading view. Caixa discreta: fundo a 3–4% de preto/branco puro
+   (neutro sem matiz não suja o bege), hairline, raio 14px (era 10, 03/09/2026) estilo
+   Apple (concêntrico com o botão de copy: 6px + 8px de inset = 14).
+   O texto continua em --terminal-fg; só as linhas de cerca (```)
+   ficam muted, porque são moldura, não conteúdo. */
+:root {
+  --terminal-codeblock-bg: #ffffff;       /* --white do site (03/09/2026) */
+  --terminal-codeblock-border: #eaeaea;   /* --line do site */
+}
+.theme-dark {
+  --terminal-codeblock-bg: #111c25;       /* --white escuro do site */
+  --terminal-codeblock-border: #262f37;   /* --line escuro do site */
+}
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock,
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock-bg {
+  background: var(--terminal-codeblock-bg) !important;
+  border-inline: 1px solid var(--terminal-codeblock-border) !important;
+  box-shadow: none !important;
+  padding-inline: 18px !important;
+  color: var(--terminal-fg) !important;
+}
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock-begin,
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock-begin-bg {
+  border-top: 1px solid var(--terminal-codeblock-border) !important;
+  border-radius: 14px 14px 0 0 !important;
+  padding-top: 12px !important;
+}
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock-end,
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock-end-bg {
+  border-bottom: 1px solid var(--terminal-codeblock-border) !important;
+  border-radius: 0 0 14px 14px !important;
+  padding-bottom: 12px !important;
+}
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock-begin,
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock-end {
+  color: var(--text-muted) !important;
+}
+/* Reading view acompanha: mesmo raio 14px (era 10, 03/09/2026) estilo Apple no <pre>
+   (o Border só dá fundo e borda, o raio dele fica diferente do
+   editor sem isto). Exceção pontual à regra "Reading view fica
+   igual" do cabeçalho — só geometria, cores continuam do tema. */
+.markdown-rendered pre {
+  border-radius: 14px !important;
+}
+
+/* Curvatura contínua (o "squircle" da Apple) onde o Chromium do
+   Obsidian já suportar; em versões antigas o raio simples fica. */
+@supports (corner-shape: superellipse(1.65)) {
+  .markdown-rendered pre,
+  .markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock-begin,
+  .markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock-begin-bg,
+  .markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock-end,
+  .markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock-end-bg {
+    corner-shape: superellipse(1.65);
+  }
+}
+/* A regra da linha ativa (abaixo) zera o background do .cm-active;
+   dentro do bloco isso abriria um buraco na linha do cursor — aqui
+   a especificidade maior mantém o fundo do bloco. */
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock.cm-active {
+  background: var(--terminal-codeblock-bg) !important;
+}
+
+/* Sem destaque de linha ativa nem barrinha lateral do Border —
+   o terminal não marca a linha onde o cursor está */
+.markdown-source-view.mod-cm6 .cm-line.cm-active {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.markdown-source-view.mod-cm6 .cm-content > .cm-active::after {
+  display: none !important;
+}
+
+/* ---- Espaço entre parágrafos sem linha em branco ----
+   Cada Enter simples ganha 8px abaixo (linhas quebradas por largura
+   continuam juntas, pois são a mesma .cm-line). Listas e blocos de
+   código ficam compactos. */
+:root { --terminal-paragraph-gap: 8px; }
+
+.markdown-source-view.mod-cm6 .cm-content > .cm-line:not(.HyperMD-list-line):not(.HyperMD-codeblock):not(.HyperMD-table-row) {
+  padding-bottom: var(--terminal-paragraph-gap) !important;
+}
+
+/* Reading view: mesmo espaçamento (o Border já aplica --p-spacing depois de <br>) */
+.markdown-reading-view .markdown-preview-view,
+.markdown-reading-view .markdown-rendered {
+  --p-spacing: var(--terminal-paragraph-gap);
+}
+
+/* ---- Prompt "❯" na linha ativa, como a linha de input do terminal ---- */
+.markdown-source-view.mod-cm6 .cm-content > .cm-line {
+  position: relative;
+}
+.markdown-source-view.mod-cm6 .cm-content > .cm-line.cm-active::before {
+  content: "❯";
+  position: absolute;
+  left: -1.6em;                 /* 1 caractere de prompt + 1 de espaço */
+  top: 0;
+  font-family: var(--terminal-font);
+  font-size: calc(var(--terminal-font-size) - 4px);   /* 4px menor que o texto */
+  line-height: calc(var(--terminal-font-size) * var(--terminal-line-height)); /* centrado na altura da linha */
+  font-weight: 300;                                    /* mais fino */
+  color: #07b0f2;                                      /* azul de destaque do vault */
+  opacity: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Título ativo: o Border desenha a barrinha de título (3px, cor do
+   acento) no MESMO pseudo-elemento ::before das linhas
+   .HyperMD-header-N. Na linha ativa o "❯" herdava largura, altura,
+   fundo, raio, margem e translateY(4px) da barrinha — glifo
+   espremido numa caixa de 3px azul e deslocado 4px pra baixo, e o
+   texto do título pulava ~9px porque o ::before deixava de ser inline.
+   Aqui o prompt zera tudo o que é da barrinha (03/09/2026). */
+.markdown-source-view.mod-cm6 .cm-content > .cm-line.cm-active[class*="HyperMD-header"]::before {
+  display: block;
+  width: auto;
+  height: auto;
+  margin: 0;
+  border-radius: 0;
+  background: none;
+  transform: none;
+}
+
+/* ---- Cursor de bloco (estilo Terminal.app) ---- */
+.cm-editor .cm-cursor,
+.cm-editor .cm-dropCursor,
+.cm-editor .cm-cursorLayer .cm-cursor {
+  border-left: var(--terminal-cursor-width) solid var(--terminal-cursor-color) !important;
+  border-right: none !important;
+  margin-left: 1px !important;        /* 1px de respiro depois do último caractere */
+  border-radius: 0;
+  opacity: 1 !important;
+  mix-blend-mode: var(--terminal-cursor-blend);
+  visibility: visible !important;
+  animation: none !important;
+}
+
+/* Sem piscar: o CodeMirror alterna cm-blink / cm-blink2 via style inline,
+   por isso matamos a animação em todas as formas */
+.cm-editor .cm-cursorLayer,
+.cm-editor.cm-focused .cm-cursorLayer {
+  animation: none !important;
+  animation-name: none !important;
+  animation-duration: 0s !important;
+  visibility: visible !important;
+}
+
+/* Editor sem foco: bloco vazado, como o Terminal.app faz */
+.cm-editor:not(.cm-focused) .cm-cursorLayer .cm-cursor {
+  display: block !important;
+  border-left-color: transparent !important;
+  box-shadow: inset 0 0 0 1px var(--terminal-cursor-hollow);
+  mix-blend-mode: normal;
+}
+
+/* Cursor nativo (título da nota, campos) na mesma cor */
+.markdown-source-view.mod-cm6 .cm-content,
+.inline-title {
+  caret-color: var(--terminal-caret);
+}
+
+/* Título inline da nota também vira "terminal" (mas em negrito, como o padrão) */
+.markdown-source-view.mod-cm6 .inline-title {
+  font-family: var(--terminal-font) !important;
+  font-size: var(--terminal-font-size) !important;
+  font-weight: 700 !important;
+  color: var(--terminal-fg) !important;
+  background-color: var(--terminal-bg) !important;
+}
+
+/* ---- Seleção de texto ---- */
+.markdown-source-view.mod-cm6 .cm-selectionBackground,
+.markdown-source-view.mod-cm6 .cm-content ::selection,
+.markdown-source-view.mod-cm6 .cm-focused .cm-selectionBackground {
+  background: var(--terminal-selection) !important;
+}

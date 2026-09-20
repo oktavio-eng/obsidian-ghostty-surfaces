@@ -1,0 +1,62 @@
+/* ===========================================================
+   copy-code-button.css — botão "Copy" dos blocos de código
+   no estilo do terminal-editor: mono, discreto, sem enfeite.
+   Invisível até passar o mouse no bloco; hover no botão usa
+   o azul de destaque do vault (#07b0f2).
+   Vale para Reading view e Live Preview.
+   =========================================================== */
+
+.markdown-rendered button.copy-code-button,
+.markdown-source-view.mod-cm6 button.copy-code-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  margin: 0;
+  padding: 3px 8px;
+
+  font-family: var(--terminal-font, "SF Mono", "Geist Mono", Menlo, monospace);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0;
+
+  color: var(--text-muted);
+  background: var(--terminal-codeblock-bg, var(--background-primary));
+  border: 1px solid var(--background-modifier-border);
+  /* 4px, concêntrico com o raio 14px do bloco: 6 + 8 de inset = 14 */
+  border-radius: 6px;
+  box-shadow: none;
+
+  opacity: 0;
+  transition: opacity 120ms ease, color 120ms ease, border-color 120ms ease;
+  cursor: pointer;
+}
+
+/* Aparece só com o mouse sobre o bloco (ou foco por teclado) */
+.markdown-rendered pre:hover button.copy-code-button,
+.markdown-source-view.mod-cm6 pre:hover button.copy-code-button,
+button.copy-code-button:focus-visible {
+  opacity: 1;
+}
+
+/* Hover no botão: azul do vault, sem fundo colorido */
+.markdown-rendered button.copy-code-button:hover,
+.markdown-source-view.mod-cm6 button.copy-code-button:hover {
+  color: #07b0f2;
+  border-color: #07b0f2;
+  background: var(--terminal-codeblock-bg, var(--background-primary));
+}
+
+/* Clique / "Copied": feedback rápido invertido */
+.markdown-rendered button.copy-code-button:active,
+.markdown-source-view.mod-cm6 button.copy-code-button:active {
+  color: var(--terminal-codeblock-bg, var(--background-primary));
+  background: #07b0f2;
+  border-color: #07b0f2;
+}
+
+/* O botão é posicionado em relação ao <pre> */
+.markdown-rendered pre,
+.markdown-source-view.mod-cm6 pre {
+  position: relative;
+}

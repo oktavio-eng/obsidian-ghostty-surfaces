@@ -1,0 +1,12 @@
+# ~/.config/ghostty/config
+font-family = Berkeley Mono
+font-size = 20
+window-padding-x = 16
+theme = light:obsidian-light,dark:Atom One Dark
+window-height = 25
+window-width = 90
+cursor-style = block
+cursor-style-blink = false
+shell-integration-features = no-cursor
+background-opacity = 0.94
+background-blur = 20
