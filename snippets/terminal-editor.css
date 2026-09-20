@@ -16,7 +16,7 @@
   --terminal-line-height: 1.5;        /* espaçamento normal do Obsidian (Terminal usa ~1.2, ficou grudado) */
   --terminal-cursor-width: 0.6em;     /* 1 caractere (SF Mono = 600/1000 em) */
 
-  /* Estética Ghostty (Atom One Light) — modo claro (03/09/2026) */
+  /* Estética Ghostty (Atom One Light) — modo claro (19/09/2026) */
   --terminal-bg: #FAF9F5;
   --terminal-fg: #000000;
   /* Cursor cinza translúcido: a letra por baixo continua visível.
@@ -97,12 +97,12 @@
    Antes era transparente como o inline, mas sem delimitação um
    prompt longo colado vira texto corrido — o bloco só aparecia na
    Reading view. Caixa discreta: fundo a 3–4% de preto/branco puro
-   (neutro sem matiz não suja o bege), hairline, raio 14px (era 10, 03/09/2026) estilo
+   (neutro sem matiz não suja o bege), hairline, raio 14px (era 10, 19/09/2026) estilo
    Apple (concêntrico com o botão de copy: 6px + 8px de inset = 14).
    O texto continua em --terminal-fg; só as linhas de cerca (```)
    ficam muted, porque são moldura, não conteúdo. */
 :root {
-  --terminal-codeblock-bg: #ffffff;       /* --white do site (03/09/2026) */
+  --terminal-codeblock-bg: #ffffff;       /* --white do site (19/09/2026) */
   --terminal-codeblock-border: #eaeaea;   /* --line do site */
 }
 .theme-dark {
@@ -133,7 +133,7 @@
 .markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock-end {
   color: var(--text-muted) !important;
 }
-/* Reading view acompanha: mesmo raio 14px (era 10, 03/09/2026) estilo Apple no <pre>
+/* Reading view acompanha: mesmo raio 14px (era 10, 19/09/2026) estilo Apple no <pre>
    (o Border só dá fundo e borda, o raio dele fica diferente do
    editor sem isto). Exceção pontual à regra "Reading view fica
    igual" do cabeçalho — só geometria, cores continuam do tema. */
@@ -210,7 +210,7 @@
    fundo, raio, margem e translateY(4px) da barrinha — glifo
    espremido numa caixa de 3px azul e deslocado 4px pra baixo, e o
    texto do título pulava ~9px porque o ::before deixava de ser inline.
-   Aqui o prompt zera tudo o que é da barrinha (03/09/2026). */
+   Aqui o prompt zera tudo o que é da barrinha (19/09/2026). */
 .markdown-source-view.mod-cm6 .cm-content > .cm-line.cm-active[class*="HyperMD-header"]::before {
   display: block;
   width: auto;
