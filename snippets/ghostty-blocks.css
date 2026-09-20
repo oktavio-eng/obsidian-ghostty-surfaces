@@ -483,3 +483,21 @@ body:is(.theme-light, .theme-dark) .markdown-source-view.mod-cm6 .cm-scroller .c
 body:is(.theme-light, .theme-dark) .markdown-source-view.mod-cm6 .cm-line.HyperMD-quote:not(:has(+ .HyperMD-quote)) + .cm-line:not(.HyperMD-quote) {
   padding-top: 10px !important;
 }
+
+/* ===========================================================
+   HOVER DOS WIDGETS (03/09/2026)
+   No Live Preview, passar o mouse num bloco renderizado (callout,
+   código, tabela) faz o Obsidian desenhar um anel azulado no
+   wrapper `.cm-embed-block` — que duplicava o nosso shell. Fica só
+   o botão `</>` de editar, que aparece no hover por conta própria.
+   `.markdown-embed` fica de fora porque o shell dele vive no
+   próprio wrapper.
+   =========================================================== */
+body:is(.theme-light, .theme-dark) .markdown-source-view.mod-cm6 .cm-embed-block:not(.markdown-embed) {
+  --background-modifier-border-hover: transparent;
+}
+body:is(.theme-light, .theme-dark) .markdown-source-view.mod-cm6 .cm-embed-block:not(.markdown-embed):hover {
+  box-shadow: none !important;
+  outline: none !important;
+  border-color: transparent !important;
+}
