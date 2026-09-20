@@ -290,8 +290,8 @@ body:is(.theme-light, .theme-dark) :is(.markdown-rendered, .markdown-source-view
      --line    oklch(0.2993 0.02 246)  → #262f37
      --row-hover = --gray-955 oklch(0.2193 0.02 246) → #131b23
    O site zera TODAS as sombras no escuro (--shadow-a* = 0): o
-   "shell" vira só respiro de 4px e a separação vem da borda de
-   1px --line. Cores de sintaxe: a paleta ANSI original do Ghostty
+   "shell" troca as sombras por um anel de 1px em --line (o mesmo
+   que o ícone de documento do site desenha como borda). Cores de sintaxe: a paleta ANSI original do Ghostty
    (pastéis feitos para fundo escuro), sem escurecer.
    =========================================================== */
 body.theme-dark {
@@ -301,7 +301,11 @@ body.theme-dark {
   --hover: #131b23;
   --check-border: #3a444d;
   --tag-lift: none;
-  --shell: 0 0 0 4px var(--page);
+  /* anel externo em --line, como a borda externa do ícone de documento
+     do site no escuro (as sombras dele são 0, mas esse anel é border) */
+  --shell:
+    0 0 0 4px var(--page),
+    0 0 0 5px var(--line);
 
   --text-normal: #f2f2f2;             /* --ink 0.96 */
   --text-muted: #909daa;              /* --muted oklch(0.69 0.024 246) */
