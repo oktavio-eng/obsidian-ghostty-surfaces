@@ -36,7 +36,7 @@ Vem do `--shadow-lift` do site, usado no gráfico de contribuições e no ícone
 
 - **Camada interna:** superfície (`--white`), borda de 1px em `--line`, raio 14px, `corner-shape: superellipse(1.65)` (o `--corner-lg` do site).
 - **Camada externa (shell):** 4px de respiro na cor da página + anel de 1px a 6% de preto + duas sombras curtas. Feita só com `box-shadow`: como o *spread* segue o raio, o anel externo sai concêntrico (14 + 4 = 18) sem elemento extra.
-- **Dark:** o site zera todas as sombras no escuro (`--shadow-a* = 0`). O shell vira só respiro de 4px; a separação vem da borda `--line`.
+- **Dark:** o site zera as sombras (`--shadow-a* = 0`), mas o ícone de documento mantém o anel externo como borda. O shell escuro usa o mesmo desenho: 4px de respiro + anel de 1px em `--line` (sem sombras curtas).
 - **Folga:** o shell sangra 5px para fora. Blocos ocupam 100% da largura e o container cortava as laterais (bug dos callouts), então cada bloco ganha `margin-inline: 6px`.
 
 ## Mapa dos blocos

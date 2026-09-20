@@ -1,6 +1,6 @@
 /* ===========================================================
    ghostty-blocks.css — blocos e chrome com o "clima" do Ghostty
-   (03/09/2026). SÓ MODO CLARO: tudo escopado em body.theme-light.
+   (19/09/2026). SÓ MODO CLARO: tudo escopado em body.theme-light.
    Não mexe em fundo, line-height, gap de parágrafo, acento, texto
    do editor nem cursor (isso é do terminal-editor.css).
 
@@ -69,7 +69,7 @@ body:is(.theme-light, .theme-dark) .nav-folder-title.is-active {
 }
 
 /* ===========================================================
-   Segunda leva (03/09/2026): citações, tabelas, tarefas, tags,
+   Segunda leva (19/09/2026): citações, tabelas, tarefas, tags,
    destaques e embeds. Mesma gramática dos blocos acima: fundo
    neutro a 3–4%, hairline a 8%, raio pequeno, sem cor de acento
    em superfície (o acento fica só em texto/estado).
@@ -111,7 +111,7 @@ body.theme-light {
 }
 
 /* ===========================================================
-   Terceira leva (03/09/2026): mais recheio e raio estilo Apple.
+   Terceira leva (19/09/2026): mais recheio e raio estilo Apple.
    Raio dos blocos 14px (era 10) com squircle; elementos internos
    concêntricos (raio interno = 14 − inset).
    =========================================================== */
@@ -158,7 +158,7 @@ body:is(.theme-light, .theme-dark) .markdown-rendered table td {
 }
 
 /* ===========================================================
-   Quarta leva (03/09/2026): craft do oktavio.vercel.app.
+   Quarta leva (19/09/2026): craft do oktavio.vercel.app.
    Superfície = --white (100%) sobre o bg #FAF9F5, borda 1px --line
    (#EAEAEA), e nos cartões o "shell" de duas camadas do site
    (--shadow-lift): 4px de respiro na cor da página + anel 1px a 6%
@@ -238,7 +238,7 @@ body:is(.theme-light, .theme-dark) .nav-folder-title.is-active {
 }
 
 /* ===========================================================
-   Tabela (03/09/2026, correção): o contorno pontudo vinha do
+   Tabela (19/09/2026, correção): o contorno pontudo vinha do
    fundo retangular de `thead tr` (Border) e das bordas colapsadas
    das células. Agora a TABELA é o cartão: borda 1px --line, raio
    14px, overflow cortando o miolo; células só com divisórias
@@ -282,7 +282,7 @@ body:is(.theme-light, .theme-dark) :is(.markdown-rendered, .markdown-source-view
 }
 
 /* ===========================================================
-   DARK (03/09/2026): superfícies do oktavio.vercel.app no escuro,
+   DARK (19/09/2026): superfícies do oktavio.vercel.app no escuro,
    lidas de styles/tokens/colors.css (OKLCH → sRGB de 8 bits):
      --bg      oklch(0.179 0.026 246) → #07121c   (fundo)
      --white   oklch(0.2193 0.024 246) → #111c25  (superfície: no
@@ -290,8 +290,8 @@ body:is(.theme-light, .theme-dark) :is(.markdown-rendered, .markdown-source-view
      --line    oklch(0.2993 0.02 246)  → #262f37
      --row-hover = --gray-955 oklch(0.2193 0.02 246) → #131b23
    O site zera TODAS as sombras no escuro (--shadow-a* = 0): o
-   "shell" vira só respiro de 4px e a separação vem da borda de
-   1px --line. Cores de sintaxe: a paleta ANSI original do Ghostty
+   "shell" troca as sombras por um anel de 1px em --line (o mesmo
+   que o ícone de documento do site desenha como borda). Cores de sintaxe: a paleta ANSI original do Ghostty
    (pastéis feitos para fundo escuro), sem escurecer.
    =========================================================== */
 body.theme-dark {
@@ -301,7 +301,11 @@ body.theme-dark {
   --hover: #131b23;
   --check-border: #3a444d;
   --tag-lift: none;
-  --shell: 0 0 0 4px var(--page);
+  /* anel externo em --line, como a borda externa do ícone de documento
+     do site no escuro (as sombras dele são 0, mas esse anel é border) */
+  --shell:
+    0 0 0 4px var(--page),
+    0 0 0 5px var(--line);
 
   --text-normal: #f2f2f2;             /* --ink 0.96 */
   --text-muted: #909daa;              /* --muted oklch(0.69 0.024 246) */
@@ -347,7 +351,7 @@ body.theme-dark .markdown-source-view .cm-scroller .cm-line.HyperMD-quote {
 }
 
 /* ===========================================================
-   PADRÃO DO EMBED PARA TODO BLOCO (03/09/2026, correção)
+   PADRÃO DO EMBED PARA TODO BLOCO (19/09/2026, correção)
    O embed é a referência: superfície, borda 1px --line em volta
    inteira e o shell completo. Os callouts perdiam as laterais
    porque ocupam 100% da largura e o shell (5px pra fora) era
@@ -382,7 +386,7 @@ body:is(.theme-light, .theme-dark) .markdown-rendered table {
 }
 
 /* ===========================================================
-   BLOCOS DE CÓDIGO NO LIVE PREVIEW com o shell do embed (03/09/2026)
+   BLOCOS DE CÓDIGO NO LIVE PREVIEW com o shell do embed (19/09/2026)
    1) Bloco renderizado (fora de edição): é um widget
       `.cm-preview-code-block` com <pre> dentro — não era pego pelas
       regras de `.markdown-rendered pre`. O <pre> vira cartão; o
@@ -435,13 +439,13 @@ body:is(.theme-light, .theme-dark) .markdown-source-view.mod-cm6 .cm-line.HyperM
 }
 
 /* Régua horizontal (--- renderizado): o Border a tinge de azul; aqui
-   fica na --line neutra, como os outros contornos (03/09/2026). */
+   fica na --line neutra, como os outros contornos (19/09/2026). */
 body:is(.theme-light, .theme-dark) {
   --hr-color: var(--line);
 }
 
 /* ===========================================================
-   CITAÇÃO E CALLOUT EM EDIÇÃO (03/09/2026, correção)
+   CITAÇÃO E CALLOUT EM EDIÇÃO (19/09/2026, correção)
    Com o cursor dentro, cada linha de `> ...` (inclusive `> [!tipo]`)
    é uma .cm-line própria. Antes cada uma virava um "comprimido" de
    14px de raio (entalhe entre as linhas) e ainda levava 8px de
@@ -485,7 +489,7 @@ body:is(.theme-light, .theme-dark) .markdown-source-view.mod-cm6 .cm-line.HyperM
 }
 
 /* ===========================================================
-   HOVER DOS WIDGETS (03/09/2026)
+   HOVER DOS WIDGETS (19/09/2026)
    No Live Preview, passar o mouse num bloco renderizado (callout,
    código, tabela) faz o Obsidian desenhar um anel azulado no
    wrapper `.cm-embed-block` — que duplicava o nosso shell. Fica só
@@ -503,7 +507,7 @@ body:is(.theme-light, .theme-dark) .markdown-source-view.mod-cm6 .cm-embed-block
 }
 
 /* ===========================================================
-   BARRINHA À ESQUERDA EM EDIÇÃO (03/09/2026)
+   BARRINHA À ESQUERDA EM EDIÇÃO (19/09/2026)
    Ao editar citação/callout sobrava uma barra fina na 1ª linha.
    Vinha de duas fontes:
      - a barrinha de citação do editor (`.cm-blockquote-border`,
@@ -522,7 +526,7 @@ body:is(.theme-light, .theme-dark) .markdown-source-view.mod-cm6 .cm-content > d
   display: none !important;
 }
 
-/* ---- Barrinha à esquerda: causa real (03/09/2026, 2ª correção) ----
+/* ---- Barrinha à esquerda: causa real (19/09/2026, 2ª correção) ----
    Lido no app.css do próprio Obsidian: a barra é o ::before de
    `.HyperMD-quote` (e de `.cm-blockquote-border`) com
    `border-inline-start: var(--blockquote-border-thickness) solid
@@ -537,7 +541,7 @@ body:is(.theme-light, .theme-dark) .markdown-source-view.mod-cm6 .cm-blockquote-
 }
 
 /* ===========================================================
-   FUNDO GERAL DO DARK = --bg DO SITE (03/09/2026)
+   FUNDO GERAL DO DARK = --bg DO SITE (19/09/2026)
    O Style Settings só alimenta `--background-mod-root-split` (o
    painel principal). A janela, a sidebar, a barra de título e os
    modais usam `--background-primary`/`--background-secondary`, que
@@ -555,7 +559,7 @@ body.theme-dark {
 }
 
 /* ===========================================================
-   UM CIANO SÓ (03/09/2026)
+   UM CIANO SÓ (19/09/2026)
    Havia dois azuis: o acento/prompt `❯` (#07b0f2) e o #3CB1DA que o
    Style Settings gravou em TODOS os `--color-*-rgb` — as barrinhas
    dos títulos (`--h1..h6-accent-color` = --color-red/orange/…),
@@ -595,7 +599,7 @@ body:is(.theme-light, .theme-dark) {
 }
 
 /* ===========================================================
-   DARK: UM DEGRAU A MAIS DE SUPERFÍCIE (03/09/2026)
+   DARK: UM DEGRAU A MAIS DE SUPERFÍCIE (19/09/2026)
    O cabeçalho da tabela (#131b23 sobre o corpo #111c25) ficava
    quase da cor do corpo e o texto muted sumia. O site resolve com
    camadas: no ícone de documento a página (#111c25) tem linhas num
@@ -612,7 +616,7 @@ body.theme-dark :is(.markdown-rendered, .markdown-source-view.mod-cm6.is-live-pr
 }
 
 /* ===========================================================
-   DARK: HIERARQUIA DE TEXTO DO SITE (03/09/2026)
+   DARK: HIERARQUIA DE TEXTO DO SITE (19/09/2026)
    Lida em main.css do site: `body`/h1–h3/`a` = --ink (#f2f2f2, o
    "branco"), `p` = --muted (oklch(0.69 0.024 246) = #909daa, 6.8:1),
    meta/legendas = --faint (#7e8891), sublinhado do link = --line
