@@ -64,6 +64,14 @@ Vem do `--shadow-lift` do site, usado no gráfico de contribuições e no ícone
 - **Shell por linha sem `clip-path`:** o spread de uma linha cobriria as vizinhas; o recorte resolve.
 - **Raio em cada linha da citação:** ao editar, cada `> ...` virava um "comprimido" com entalhe entre as linhas (e o gap de parágrafo de 8px somava padding em cada uma). Corrigido tratando a sequência como um bloco (primeira/meio/última).
 
+## Ghostty
+
+Dois temas, escolhidos pelo tema do macOS (`theme = light:obsidian-light,dark:obsidian-dark`).
+
+- **`obsidian-light`:** fundo `#FAF9F5`, texto `#000`, cursor cinza `#8a8985` com a letra preta, seleção `#cfe5fb` (azul do macOS já misturado ao fundo). ANSI = cores de sintaxe do Obsidian claro; `palette 7` e `15` são cinzas legíveis (branco puro some sobre o bege).
+- **`obsidian-dark`:** fundo `#07121c`, texto `--ink` `#f2f2f2` (no terminal, não o `--muted` da prosa: saída de comando em cinza azulado cansa), cursor `#f2f2f2` com a letra `#07121c`, seleção `#394149` (branco a 20% sobre o fundo). ANSI = pastéis originais do Ghostty (os mesmos do syntax highlight escuro); `palette 0` = `--line` e `palette 8` = `--faint` para não sumirem no fundo azulado.
+- `theme = light: nome` (com espaço) pode não achar o tema; escreva `light:nome`.
+
 ## Bugs encontrados e corrigidos
 
 - **Prompt `❯` em título ativo:** o Border desenha a barrinha de título (3px, acento) no mesmo `::before` de `.HyperMD-header-N`; na linha ativa o `❯` herdava largura, altura, fundo, raio, margem e `translateY(4px)`, e o texto do título pulava ~9px. O snippet zera essas propriedades só em linhas de título ativas.

@@ -2,7 +2,7 @@
 font-family = Berkeley Mono
 font-size = 20
 window-padding-x = 16
-theme = light:obsidian-light,dark:Atom One Dark
+theme = light:obsidian-light,dark:obsidian-dark
 window-height = 25
 window-width = 90
 cursor-style = block
