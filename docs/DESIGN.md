@@ -57,6 +57,7 @@ Vem do `--shadow-lift` do site, usado no gráfico de contribuições e no ícone
 - **Callouts sem laterais:** o shell era cortado pelo container (ver "Folga").
 - **Tabela com contorno pontudo:** ver acima.
 - **Barrinha fina à esquerda ao editar citação/callout:** é o `::before` de `.HyperMD-quote` (e de `.cm-blockquote-border`), com `border-inline-start: var(--blockquote-border-thickness) solid var(--blockquote-border-color)` (lido no `app.css` do Obsidian). O Border só zera a largura (`width: 0 !important`); a borda de 2px continua desenhada e ainda vazava no `❯` da linha ativa, que usa o mesmo pseudo-elemento. Corrigido zerando a borda no `::before`. A primeira tentativa (esconder o elemento `.cm-blockquote-border` e o `::after` de hover) não pegava o pseudo-elemento certo.
+- **Fundo geral do dark cinza em vez de azulado:** o Style Settings só alimenta `--background-mod-root-split` (painel principal); janela, sidebar e barra de título usam `--background-primary`/`--background-secondary`, cinza neutro no Border escuro. O snippet agora define os três (e `--terminal-bg`) como `#07121c` direto, sem depender do Style Settings.
 - **Anel de hover nos widgets do Live Preview:** o Obsidian desenha um anel azulado no `.cm-embed-block` ao passar o mouse, duplicando o shell. Removido (exceto em `.markdown-embed`, cujo shell vive no próprio wrapper); o botão `</>` de editar continua aparecendo no hover.
 
 ## Limitações conhecidas

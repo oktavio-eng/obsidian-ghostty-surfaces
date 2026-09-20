@@ -21,7 +21,7 @@ Snippets de CSS para o Obsidian: editor com cara de terminal e superfícies no p
 
 1. Copie `snippets/*.css` para `<vault>/.obsidian/snippets/` e ative em *Settings › Appearance › CSS snippets*.
 2. Copie `plugin/terminal-cursor/` para `<vault>/.obsidian/plugins/` e ative o plugin (sem ele o cursor volta a ser o caret fino nativo).
-3. Em *Style Settings › Border*, ajuste o fundo do painel principal: `#FAF9F5` no claro, `#07121c` no escuro.
+3. Em *Style Settings › Border*, ajuste o fundo do painel principal para `#FAF9F5` no claro. O fundo escuro (`#07121c`) já é definido pelo snippet.
 4. Ghostty: copie `ghostty/themes/obsidian-light` para `~/.config/ghostty/themes/` e use a linha `theme` de `ghostty/config`.
 
 A fonte Berkeley Mono é paga e não está incluída; sem ela, a pilha cai para SF Mono / Geist Mono.
