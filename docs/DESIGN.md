@@ -12,7 +12,8 @@ Como as superfícies do Obsidian foram alinhadas ao site (`oktavio.vercel.app`) 
 | `--row-hover` (fill de hover / cabeçalho de tabela) | `#f4f2ee` | `#131b23` — `oklch(0.2193 0.02 246)` |
 | `--ink` | `#000000` (mantido do vault) | `#f2f2f2` |
 | `--muted` / `--faint` | do tema | `#909daa` / `#7e8891` |
-| Acento | `#07b0f2` | `#07b0f2` |
+| Acento (único ciano) | `#07b0f2` | `#07b0f2` |
+| `--surface-2` (degrau extra, cabeçalho de tabela) | — (usa `--row-hover`) | `#18232b` — 65% superfície + 35% `--line` |
 
 Fixos por pedido: `line-height` 1.5, gap de parágrafo 8px, acento `#07b0f2`, texto preto e seleção azul do macOS no claro.
 
@@ -58,6 +59,8 @@ Vem do `--shadow-lift` do site, usado no gráfico de contribuições e no ícone
 - **Tabela com contorno pontudo:** ver acima.
 - **Barrinha fina à esquerda ao editar citação/callout:** é o `::before` de `.HyperMD-quote` (e de `.cm-blockquote-border`), com `border-inline-start: var(--blockquote-border-thickness) solid var(--blockquote-border-color)` (lido no `app.css` do Obsidian). O Border só zera a largura (`width: 0 !important`); a borda de 2px continua desenhada e ainda vazava no `❯` da linha ativa, que usa o mesmo pseudo-elemento. Corrigido zerando a borda no `::before`. A primeira tentativa (esconder o elemento `.cm-blockquote-border` e o `::after` de hover) não pegava o pseudo-elemento certo.
 - **Fundo geral do dark cinza em vez de azulado:** o Style Settings só alimenta `--background-mod-root-split` (painel principal); janela, sidebar e barra de título usam `--background-primary`/`--background-secondary`, cinza neutro no Border escuro. O snippet agora define os três (e `--terminal-bg`) como `#07121c` direto, sem depender do Style Settings.
+- **Dois tons de azul:** o acento e o `❯` usavam `#07b0f2`, mas o Style Settings gravou `#3CB1DA` em todos os `--color-*-rgb`, e as barrinhas dos títulos (`--h1..h6-accent-color`), ícones de callout, checkbox e código inline herdavam esse outro tom. Agora `--color-*`, `--h*-accent-color`, links, tags e o `❯` apontam para uma variável só (`--cyan: #07b0f2`), nos dois temas.
+- **Cabeçalho de tabela ilegível no dark:** o fundo (`#131b23`) era quase igual ao corpo (`#111c25`). Ganhou um degrau de superfície (`--surface-2`) e texto em `--ink`.
 - **Anel de hover nos widgets do Live Preview:** o Obsidian desenha um anel azulado no `.cm-embed-block` ao passar o mouse, duplicando o shell. Removido (exceto em `.markdown-embed`, cujo shell vive no próprio wrapper); o botão `</>` de editar continua aparecendo no hover.
 
 ## Limitações conhecidas
