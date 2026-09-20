@@ -521,3 +521,17 @@ body:is(.theme-light, .theme-dark) .markdown-source-view.mod-cm6 .cm-blockquote-
 body:is(.theme-light, .theme-dark) .markdown-source-view.mod-cm6 .cm-content > div::after {
   display: none !important;
 }
+
+/* ---- Barrinha à esquerda: causa real (03/09/2026, 2ª correção) ----
+   Lido no app.css do próprio Obsidian: a barra é o ::before de
+   `.HyperMD-quote` (e de `.cm-blockquote-border`) com
+   `border-inline-start: var(--blockquote-border-thickness) solid
+   var(--blockquote-border-color)`. O Border só zera a LARGURA
+   (`width: 0 !important`), mas a borda de 2px continua desenhada —
+   e vazava também no "❯" da linha ativa, que usa o mesmo ::before.
+   Zera a borda no pseudo-elemento. */
+body:is(.theme-light, .theme-dark) .markdown-source-view.mod-cm6 .cm-line.HyperMD-quote::before,
+body:is(.theme-light, .theme-dark) .markdown-source-view.mod-cm6 .cm-blockquote-border::before {
+  border: 0 !important;
+  border-inline-start: 0 !important;
+}
