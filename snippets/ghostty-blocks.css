@@ -282,6 +282,17 @@ body:is(.theme-light, .theme-dark) :is(.markdown-rendered, .markdown-source-view
 }
 
 /* ===========================================================
+   DARK (03/10/2026): os valores abaixo passaram a seguir o dark do
+   design system do Gow Pixel Office (src/app/styles.css, light-dark()),
+   neutro quase preto em vez do azul-marinho do site. Os comentários de
+   19/09 citam os valores antigos. Mapa:
+     fundo #07121c → --bg-app #0d1116 · superfície #111c25 → --surface #14191f
+     linha #262f37 → --border #252930 · hover #131b23 → --fill-hover #20262d
+     cabeçalho #18232b → --surface-raised #1e232b · checkbox → --border-field #3d434b
+     texto #f2f2f2 → --ink #e8ebf1 · muted #909daa → #989faa · faint #7e8891 → #747b85
+   Acento #07b0f2 mantido (o do DS é #00AAEB, praticamente igual).
+   =========================================================== */
+/* ===========================================================
    DARK (19/09/2026): superfícies do oktavio.vercel.app no escuro,
    lidas de styles/tokens/colors.css (OKLCH → sRGB de 8 bits):
      --bg      oklch(0.179 0.026 246) → #07121c   (fundo)
@@ -295,11 +306,11 @@ body:is(.theme-light, .theme-dark) :is(.markdown-rendered, .markdown-source-view
    (pastéis feitos para fundo escuro), sem escurecer.
    =========================================================== */
 body.theme-dark {
-  --surface: #111c25;
-  --line: #262f37;
-  --page: #07121c;
-  --hover: #131b23;
-  --check-border: #3a444d;
+  --surface: #14191f;
+  --line: #252930;
+  --page: #0d1116;
+  --hover: #20262d;
+  --check-border: #3d434b;
   --tag-lift: none;
   /* anel externo em --line, como a borda externa do ícone de documento
      do site no escuro (as sombras dele são 0, mas esse anel é border) */
@@ -307,9 +318,9 @@ body.theme-dark {
     0 0 0 4px var(--page),
     0 0 0 5px var(--line);
 
-  --text-normal: #f2f2f2;             /* --ink 0.96 */
-  --text-muted: #909daa;              /* --muted oklch(0.69 0.024 246) */
-  --text-faint: #7e8891;              /* --faint oklch(0.62 0.018 246) */
+  --text-normal: #e8ebf1;             /* --ink 0.96 */
+  --text-muted: #989faa;              /* --muted oklch(0.69 0.024 246) */
+  --text-faint: #747b85;              /* --faint oklch(0.62 0.018 246) */
   --divider-color: var(--line);
   --tab-outline-color: transparent;
 
@@ -551,11 +562,18 @@ body:is(.theme-light, .theme-dark) .markdown-source-view.mod-cm6 .cm-blockquote-
    depender do Style Settings.
    =========================================================== */
 body.theme-dark {
-  --background-primary: #07121c;
-  --background-primary-alt: #07121c;
-  --background-secondary: #07121c;
-  --background-mod-root-split: #07121c;
-  --terminal-bg: #07121c;
+  --background-primary: #0d1116;
+  --background-primary-alt: #0d1116;
+  --background-secondary: #0d1116;
+  --background-mod-root-split: #0d1116;
+  --terminal-bg: #0d1116;
+}
+/* O Border força `--background-mod-root-split` com !important a partir da
+   cor do Style Settings (`body.theme-dark.mod-root-split-background-customize-dark`),
+   que só é relida quando o app reinicia — por isso o cabeçalho da nota ficou com
+   o azul antigo depois da troca (03/10/2026). Mesmo seletor, carregado depois. */
+body.theme-dark.mod-root-split-background-customize-dark {
+  --background-mod-root-split: #0d1116 !important;
 }
 
 /* ===========================================================
@@ -602,12 +620,12 @@ body:is(.theme-light, .theme-dark) {
    DARK: UM DEGRAU A MAIS DE SUPERFÍCIE (19/09/2026)
    O cabeçalho da tabela (#131b23 sobre o corpo #111c25) ficava
    quase da cor do corpo e o texto muted sumia. O site resolve com
-   camadas: no ícone de documento a página (#111c25) tem linhas num
+   camadas: no ícone de documento a página (#14191f) tem linhas num
    tom acima (--line). Aqui: --surface-2 = 65% superfície + 35%
    linha (#18232b) só no cabeçalho, com texto em --ink e peso 600.
    =========================================================== */
 body.theme-dark {
-  --surface-2: #18232b;
+  --surface-2: #1e232b;
 }
 body.theme-dark :is(.markdown-rendered, .markdown-source-view.mod-cm6.is-live-preview) table th {
   background: var(--surface-2) !important;
@@ -617,8 +635,8 @@ body.theme-dark :is(.markdown-rendered, .markdown-source-view.mod-cm6.is-live-pr
 
 /* ===========================================================
    DARK: HIERARQUIA DE TEXTO DO SITE (19/09/2026)
-   Lida em main.css do site: `body`/h1–h3/`a` = --ink (#f2f2f2, o
-   "branco"), `p` = --muted (oklch(0.69 0.024 246) = #909daa, 6.8:1),
+   Lida em main.css do site: `body`/h1–h3/`a` = --ink (#e8ebf1, o
+   "branco"), `p` = --muted (oklch(0.69 0.024 246) = #989faa, 6.8:1),
    meta/legendas = --faint (#7e8891), sublinhado do link = --line
    (vira --ink no hover). Ou seja: prosa em cinza azulado; títulos,
    ênfase e links em branco. UI do Obsidian (--text-normal) fica em
@@ -626,9 +644,9 @@ body.theme-dark :is(.markdown-rendered, .markdown-source-view.mod-cm6.is-live-pr
    Só no escuro — o claro não muda.
    =========================================================== */
 body.theme-dark {
-  --ink: #f2f2f2;
-  --prose: #909daa;               /* --muted */
-  --faint: #7e8891;
+  --ink: #e8ebf1;
+  --prose: #989faa;               /* --muted */
+  --faint: #747b85;
   --terminal-fg: var(--prose);    /* prosa do editor */
   --list-marker-color: var(--faint);
   --code-normal: var(--ink);

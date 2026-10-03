@@ -4,16 +4,18 @@ Como as superfícies do Obsidian foram alinhadas ao site (`oktavio.vercel.app`) 
 
 ## Tokens
 
+Desde 03/10/2026 a coluna **Escuro** segue o modo escuro do design system do Gow Pixel Office: neutro quase preto (`--bg-app`, `--surface`, `--border`, `--fill-hover`, `--surface-raised`, `--ink`) em vez do azul-marinho do site. O claro não mudou. O tema `obsidian-dark` do Ghostty ainda usa os valores antigos.
+
 | Token do site | Claro | Escuro |
 |---|---|---|
-| `--bg` (fundo) | `#FAF9F5` | `#07121c` — `oklch(0.179 0.026 246)` |
-| `--white` (superfície) | `#ffffff` | `#111c25` — `oklch(0.2193 0.024 246)` |
-| `--line` (borda 1px) | `#eaeaea` | `#262f37` — `oklch(0.2993 0.02 246)` |
-| `--row-hover` (fill de hover / cabeçalho de tabela) | `#f4f2ee` | `#131b23` — `oklch(0.2193 0.02 246)` |
-| `--ink` | `#000000` (mantido do vault) | `#f2f2f2` |
-| `--muted` / `--faint` | do tema | `#909daa` / `#7e8891` |
+| `--bg` (fundo) | `#FAF9F5` | `#0d1116` |
+| `--white` (superfície) | `#ffffff` | `#14191f` |
+| `--line` (borda 1px) | `#eaeaea` | `#252930` |
+| `--row-hover` (fill de hover / cabeçalho de tabela) | `#f4f2ee` | `#20262d` |
+| `--ink` | `#000000` (mantido do vault) | `#e8ebf1` |
+| `--muted` / `--faint` | do tema | `#989faa` / `#747b85` |
 | Acento (único ciano) | `#07b0f2` | `#07b0f2` |
-| `--surface-2` (degrau extra, cabeçalho de tabela) | — (usa `--row-hover`) | `#18232b` — 65% superfície + 35% `--line` |
+| `--surface-2` (degrau extra, cabeçalho de tabela) | — (usa `--row-hover`) | `#1e232b` |
 
 Fixos por pedido: `line-height` 1.5, gap de parágrafo 8px, acento `#07b0f2`, texto preto e seleção azul do macOS no claro.
 
@@ -23,10 +25,10 @@ Lida em `main.css` do site. A prosa é cinza azulado; títulos, ênfase e links 
 
 | Papel | Token | Dark |
 |---|---|---|
-| Títulos (h1–h3), links, texto padrão | `--ink` | `#f2f2f2` |
-| Parágrafos (`p`) | `--muted` | `oklch(0.69 0.024 246)` = `#909daa` (6.8:1 sobre o fundo) |
-| Metadados, marcadores de lista | `--faint` | `#7e8891` |
-| Sublinhado de link | `--line` → `--ink` no hover | `#262f37` → `#f2f2f2` |
+| Títulos (h1–h3), links, texto padrão | `--ink` | `#e8ebf1` |
+| Parágrafos (`p`) | `--muted` | `#989faa` |
+| Metadados, marcadores de lista | `--faint` | `#747b85` |
+| Sublinhado de link | `--line` → `--ink` no hover | `#252930` → `#e8ebf1` |
 
 No Obsidian: prosa do editor e da reading view em `--muted`; títulos, `**negrito**`, links, código inline, texto de código e cabeçalho de tabela em `--ink`; UI (`--text-normal`) em `--ink`. A seleção do site é `--ink` como fundo e `--bg` como texto; o Obsidian não inverte a cor do texto na camada de seleção do CodeMirror, então a seleção escura segue translúcida.
 

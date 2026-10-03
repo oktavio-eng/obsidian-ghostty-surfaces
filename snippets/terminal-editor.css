@@ -29,8 +29,8 @@
 }
 .theme-dark {
   /* Perfil Basic — modo escuro */
-  --terminal-bg: var(--background-mod-root-split, #07121c);  /* mesmo fundo da reading view (--bg escuro do site) */
-  --terminal-fg: #f2f2f2;                /* --ink escuro do site */
+  --terminal-bg: var(--background-mod-root-split, #0d1116);  /* mesmo fundo da reading view (--bg escuro do site) */
+  --terminal-fg: #e8ebf1;                /* --ink escuro do site */
   --terminal-cursor-color: rgba(255, 255, 255, 0.45);
   --terminal-cursor-blend: normal;
   --terminal-cursor-hollow: rgba(255, 255, 255, 0.45);
@@ -106,8 +106,8 @@
   --terminal-codeblock-border: #eaeaea;   /* --line do site */
 }
 .theme-dark {
-  --terminal-codeblock-bg: #111c25;       /* --white escuro do site */
-  --terminal-codeblock-border: #262f37;   /* --line escuro do site */
+  --terminal-codeblock-bg: #14191f;       /* --white escuro do site */
+  --terminal-codeblock-border: #252930;   /* --line escuro do site */
 }
 .markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock,
 .markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock-bg {
