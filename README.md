@@ -24,6 +24,16 @@ Snippets de CSS para o Obsidian: editor com cara de terminal e superfícies no p
 3. Em *Style Settings › Border*, ajuste o fundo do painel principal para `#FAF9F5` no claro. O fundo escuro (`#07121c`) já é definido pelo snippet.
 4. Ghostty: copie `ghostty/themes/obsidian-light` e `obsidian-dark` para `~/.config/ghostty/themes/` e use a linha `theme` de `ghostty/config` (sem espaço depois de `light:`). Recarregue com Cmd+Shift+,.
 
+### Desktop e celular com configurações separadas
+
+Os snippets e o plugin foram feitos e conferidos só no desktop. No celular, o vault com essa configuração (mais o Excalidraw) não chegou a abrir; a causa exata ainda não foi isolada. Para não levar nada disso ao celular sem perder o visual no Mac, cada aparelho pode ler uma pasta de configuração diferente:
+
+1. Copie `<vault>/.obsidian` para `<vault>/.obsidian-desktop`.
+2. No Mac, em *Settings › Files and links › Override config folder*, use `.obsidian-desktop` e reinicie o Obsidian. Essa opção fica salva no aparelho, não no vault.
+3. Na `.obsidian`, que passa a ser só do celular, desative os snippets e os plugins pesados.
+
+Depois disso, instale os snippets e o plugin em `.obsidian-desktop` em vez de `.obsidian`.
+
 A fonte Berkeley Mono é paga e não está incluída; sem ela, a pilha cai para SF Mono / Geist Mono.
 
 ## Licença
